@@ -1,8 +1,15 @@
 let container = document.querySelector(".container");
 let k = 50;
 
+let mouseDown = false;
+let clicky = false;
+document.body.onmousedown = () => (mouseDown = true);
+document.body.onmouseup = () => (mouseDown = false);
+document.body.onclick = () => (clicky = true);
+
 container.style.display = "flex";
 container.style.flexDirection = "column";
+container.style.width = "960px";
 
 function generateBox() {
   for (let i = 1; i <= k; i++) {
@@ -18,13 +25,15 @@ function generateBox() {
     for (let j = 1; j <= k; j++) {
       let box = document.createElement("div");
       box.classList.add("box");
+      let size = String(int(960 / k)) + "px";
+      console.log(size);
 
       box.style.backgroundColor = "white";
       box.style.maxWidth = "50px";
       box.style.maxHeight = "50px";
       box.style.width = "50px";
       box.style.height = "50px";
-      box.style.border = "2px solid blue";
+      box.style.border = "1px solid blue";
 
       boxColumn.append(box);
     }
@@ -36,7 +45,11 @@ function draw() {
 
   box.forEach((b) => {
     b.addEventListener("mouseover", (event) => {
-      b.style.backgroundColor = "black";
+      console.log(clicky);
+      console.log(mouseDown);
+      if (clicky && mouseDown) {
+        b.style.backgroundColor = "black";
+      }
       console.log("this ran two");
     });
   });
@@ -47,11 +60,11 @@ function draw() {
 generateBox();
 draw();
 
-box.forEach((b) => {
-  b.addEventListener("mouseover", (event) => {
-    b.addEventListener("click", (event) => {
-      b.style.backgroundColor = "black";
-      console.log("this ran two");
-    });
-  });
-});
+// box.forEach((b) => {
+//   b.addEventListener("mouseover", (event) => {
+//     b.addEventListener("click", (event) => {
+//       b.style.backgroundColor = "black";
+//       console.log("this ran two");
+//     });
+//   });
+// });
